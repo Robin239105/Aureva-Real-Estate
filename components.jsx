@@ -1,4 +1,5 @@
 // ============== Shared components ==============
+import { FaInstagram, FaLinkedin, FaPinterest, FaXTwitter, FaFacebook, FaYoutube } from 'react-icons/fa6';
 
 const React = window.React;
 const { useState, useEffect, useRef, useMemo } = React;
@@ -334,10 +335,13 @@ function Footer({ navigate }) {
           <div style={{ display: "flex", gap: 22 }}>
             <a>Privacy</a><a>Terms</a><a>Accessibility</a><a>Cookies</a>
           </div>
-          <div style={{ display: "flex", gap: 14 }}>
-            <a aria-label="Instagram">IG</a>
-            <a aria-label="LinkedIn">LI</a>
-            <a aria-label="Pinterest">PN</a>
+          <div style={{ display: "flex", gap: 16, alignItems: "center" }}>
+            <a href="#" aria-label="Instagram" style={{ display: "inline-flex" }}><FaInstagram size={16} /></a>
+            <a href="#" aria-label="LinkedIn" style={{ display: "inline-flex" }}><FaLinkedin size={16} /></a>
+            <a href="#" aria-label="Pinterest" style={{ display: "inline-flex" }}><FaPinterest size={16} /></a>
+            <a href="#" aria-label="X" style={{ display: "inline-flex" }}><FaXTwitter size={15} /></a>
+            <a href="#" aria-label="Facebook" style={{ display: "inline-flex" }}><FaFacebook size={16} /></a>
+            <a href="#" aria-label="YouTube" style={{ display: "inline-flex" }}><FaYoutube size={16} /></a>
           </div>
         </div>
       </div>
