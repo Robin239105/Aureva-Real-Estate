@@ -27,7 +27,7 @@ function SignedOutRoutes() {
     <Routes>
       <Route path="/sign-in/*" element={<SignInScreen mode="sign-in" />} />
       <Route path="/sign-up/*" element={<SignInScreen mode="sign-up" />} />
-      <Route path="*" element={<SignInScreen mode="sign-in" />} />
+      <Route path="*" element={<Navigate to="/sign-in" replace />} />
     </Routes>
   );
 }
