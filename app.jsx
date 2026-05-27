@@ -2,9 +2,10 @@
 const React = window.React;
 const { useState, useEffect } = React;
 const {
-  Header, Footer,
+  Header, Footer, CookieBanner,
   HomePage, PropertiesPage, BuyPage, RentPage, SellPage, DetailsPage,
   AgentsPage, AgentProfilePage, AboutPage, BlogPage, BlogDetailsPage, ContactPage,
+  PrivacyPage, TermsPage, AccessibilityPage, CookiesPage,
 } = window;
 
 function App() {
@@ -65,6 +66,10 @@ function App() {
       case "blog":         return <BlogPage {...common} />;
       case "blog-details": return <BlogDetailsPage {...common} postId={route.params.id || "b1"} />;
       case "contact":      return <ContactPage {...common} />;
+      case "privacy":      return <PrivacyPage {...common} />;
+      case "terms":        return <TermsPage {...common} />;
+      case "accessibility": return <AccessibilityPage {...common} />;
+      case "cookies":      return <CookiesPage {...common} />;
       default:             return (
         <div className="page" style={{ minHeight: "70vh", display: "flex", alignItems: "center", justifyContent: "center", textAlign: "center", padding: "120px 24px" }}>
           <div style={{ maxWidth: 540 }}>
@@ -92,6 +97,7 @@ function App() {
         {renderPage()}
       </main>
       <Footer navigate={navigate} />
+      <CookieBanner navigate={navigate} />
     </div>
   );
 }

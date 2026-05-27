@@ -12,6 +12,7 @@ import '../screens/agents.jsx';
 import '../screens/about.jsx';
 import '../screens/blog.jsx';
 import '../screens/contact.jsx';
+import '../screens/legal.jsx';
 import '../app.jsx';
 
 import React from 'react';

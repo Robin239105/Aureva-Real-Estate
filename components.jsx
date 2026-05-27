@@ -332,8 +332,11 @@ function Footer({ navigate }) {
 
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", paddingTop: 30, fontSize: 12, color: "rgba(248,245,239,0.5)" }}>
           <span>© 2026 Aureva Estates. All rights reserved.</span>
-          <div style={{ display: "flex", gap: 22 }}>
-            <a>Privacy</a><a>Terms</a><a>Accessibility</a><a>Cookies</a>
+          <div style={{ display: "flex", gap: 22, flexWrap: "wrap" }}>
+            <a onClick={() => navigate("privacy")}       style={{ cursor: "pointer" }}>Privacy</a>
+            <a onClick={() => navigate("terms")}         style={{ cursor: "pointer" }}>Terms</a>
+            <a onClick={() => navigate("accessibility")} style={{ cursor: "pointer" }}>Accessibility</a>
+            <a onClick={() => navigate("cookies")}       style={{ cursor: "pointer" }}>Cookies</a>
           </div>
           <div style={{ display: "flex", gap: 16, alignItems: "center" }}>
             <a href="#" aria-label="Instagram" style={{ display: "inline-flex" }}><FaInstagram size={16} /></a>
@@ -603,6 +606,120 @@ function PageBanner({ eyebrow, title, kicker, breadcrumb, image }) {
   );
 }
 
+// ---------- Cookie Consent Banner ----------
+const COOKIE_KEY = "aureva_cookie_consent";
+
+function CookieBanner({ navigate }) {
+  const [visible, setVisible] = useState(false);
+  const [expanded, setExpanded] = useState(false);
+  const [prefs, setPrefs] = useState({ necessary: true, analytics: false, marketing: false });
+
+  useEffect(() => {
+    try {
+      const v = localStorage.getItem(COOKIE_KEY);
+      if (!v) {
+        const t = setTimeout(() => setVisible(true), 600);
+        return () => clearTimeout(t);
+      }
+    } catch (e) { setVisible(true); }
+  }, []);
+
+  const persist = (choice) => {
+    try {
+      localStorage.setItem(COOKIE_KEY, JSON.stringify({
+        ...choice, ts: Date.now(), v: 1,
+      }));
+    } catch (e) {}
+    setVisible(false);
+  };
+
+  const acceptAll = () => persist({ necessary: true, analytics: true, marketing: true });
+  const rejectAll = () => persist({ necessary: true, analytics: false, marketing: false });
+  const saveChoice = () => persist(prefs);
+
+  if (!visible) return null;
+
+  return (
+    <div
+      role="dialog"
+      aria-live="polite"
+      aria-label="Cookie preferences"
+      style={{
+        position: "fixed", left: 16, right: 16, bottom: 16, zIndex: 9000,
+        maxWidth: 880, marginInline: "auto",
+        background: "rgba(11,18,32,0.97)",
+        color: "var(--ivory)",
+        border: "1px solid rgba(201,164,92,0.35)",
+        boxShadow: "0 30px 80px rgba(0,0,0,0.55), 0 0 0 1px rgba(201,164,92,0.12)",
+        backdropFilter: "blur(14px)",
+        borderRadius: 4,
+        padding: "22px 24px",
+        animation: "fadeUp 500ms cubic-bezier(.2,.7,.2,1) both",
+      }}
+    >
+      <div style={{ display: "flex", alignItems: "flex-start", gap: 18, flexWrap: "wrap" }}>
+        <div style={{ flex: "1 1 320px", minWidth: 0 }}>
+          <div className="eyebrow on-dark" style={{ marginBottom: 8 }}>Cookies</div>
+          <p style={{ margin: 0, fontSize: 14, lineHeight: 1.65, color: "rgba(248,245,239,0.85)" }}>
+            We use cookies to enable core site functions, measure traffic, and improve your experience. Read our{" "}
+            <a onClick={() => { setVisible(false); navigate("cookies"); }} style={{ color: "var(--gold)", textDecoration: "underline", cursor: "pointer" }}>Cookie Policy</a>.
+          </p>
+        </div>
+        <div style={{ display: "flex", gap: 10, flexWrap: "wrap", alignItems: "center" }}>
+          <button className="btn btn-outline-gold" style={{ padding: "10px 18px", fontSize: 11 }} onClick={() => setExpanded(e => !e)}>
+            {expanded ? "Hide options" : "Customize"}
+          </button>
+          <button className="btn btn-outline-gold" style={{ padding: "10px 18px", fontSize: 11 }} onClick={rejectAll}>
+            Reject all
+          </button>
+          <button className="btn btn-gold" style={{ padding: "10px 18px", fontSize: 11 }} onClick={acceptAll}>
+            Accept all <span className="arrow"></span>
+          </button>
+        </div>
+      </div>
+
+      {expanded && (
+        <div style={{
+          marginTop: 18, paddingTop: 18,
+          borderTop: "1px solid rgba(201,164,92,0.18)",
+          display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+          gap: 16,
+        }}>
+          {[
+            { k: "necessary", label: "Strictly necessary", desc: "Required for core functions (favorites, consent). Always on.", locked: true },
+            { k: "analytics", label: "Analytics", desc: "Helps us understand how visitors use the site." },
+            { k: "marketing", label: "Marketing", desc: "Used to personalize ads on other sites." },
+          ].map(c => (
+            <label key={c.k} style={{
+              display: "flex", gap: 12, alignItems: "flex-start",
+              padding: 14, border: "1px solid rgba(255,255,255,0.08)",
+              borderRadius: 3, cursor: c.locked ? "not-allowed" : "pointer",
+              opacity: c.locked ? 0.7 : 1,
+            }}>
+              <input
+                type="checkbox"
+                checked={prefs[c.k]}
+                disabled={c.locked}
+                onChange={e => setPrefs(p => ({ ...p, [c.k]: e.target.checked }))}
+                style={{ marginTop: 3, accentColor: "var(--gold)" }}
+              />
+              <div style={{ flex: 1 }}>
+                <div style={{ fontSize: 13, fontWeight: 500, color: "var(--ivory)" }}>{c.label}</div>
+                <div style={{ fontSize: 12, color: "rgba(248,245,239,0.65)", marginTop: 4, lineHeight: 1.55 }}>{c.desc}</div>
+              </div>
+            </label>
+          ))}
+          <div style={{ gridColumn: "1 / -1", display: "flex", justifyContent: "flex-end" }}>
+            <button className="btn btn-gold" style={{ padding: "10px 22px", fontSize: 11 }} onClick={saveChoice}>
+              Save preferences <span className="arrow"></span>
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
 Object.assign(window, {
-  Logo, Icon, Header, Footer, PropertyCard, SearchBar, SectionHead, CTABand, Reveal, PageBanner, NAV_LINKS,
+  Logo, Icon, Header, Footer, PropertyCard, SearchBar, SectionHead, CTABand, Reveal, PageBanner, NAV_LINKS, CookieBanner,
 });
