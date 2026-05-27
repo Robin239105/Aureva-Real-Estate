@@ -1,13 +1,5 @@
 import { useEffect, useState } from 'react';
-import {
-  SignIn,
-  SignUp,
-  SignedIn,
-  SignedOut,
-  useAuth,
-  useUser,
-  UserButton,
-} from '@clerk/clerk-react';
+import { SignIn, SignUp, Show, useAuth, useUser, UserButton } from '@clerk/react';
 import { Shell } from './Shell.jsx';
 import { Dashboard } from './pages/Dashboard.jsx';
 import { Properties } from './pages/Properties.jsx';
@@ -45,12 +37,12 @@ function useAdminRoute() {
 export default function AdminApp() {
   return (
     <>
-      <SignedOut>
+      <Show when="signed-out">
         <SignInScreen />
-      </SignedOut>
-      <SignedIn>
+      </Show>
+      <Show when="signed-in">
         <AdminAuthed />
-      </SignedIn>
+      </Show>
     </>
   );
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './admin.css';
-import { ClerkProvider } from '@clerk/clerk-react';
+import { ClerkProvider } from '@clerk/react';
 import { Toaster } from 'sonner';
 import AdminApp from './AdminApp.jsx';
 
@@ -20,8 +20,7 @@ function SetupRequired() {
           environment variable, then redeploy.
         </p>
         <pre className="mt-6 p-4 bg-navy text-ivory font-mono text-xs rounded-sm overflow-auto">
-          VITE_CLERK_PUBLISHABLE_KEY=pk_test_xxxxxxxxxxxxxxxx{'\n'}
-          CLERK_SECRET_KEY=sk_test_xxxxxxxxxxxxxxxx
+          VITE_CLERK_PUBLISHABLE_KEY=pk_test_xxxxxxxxxxxxxxxx{'\n'}CLERK_SECRET_KEY=sk_test_xxxxxxxxxxxxxxxx
         </pre>
         <ol className="mt-5 text-sm text-foreground space-y-2 list-decimal pl-5">
           <li>
@@ -56,11 +55,6 @@ if (!PUBLISHABLE_KEY) {
   root.render(
     <React.StrictMode>
       <ClerkProvider
-        publishableKey={PUBLISHABLE_KEY}
-        signInUrl="/admin"
-        signUpUrl="/admin"
-        signInFallbackRedirectUrl="/admin"
-        signUpFallbackRedirectUrl="/admin"
         afterSignOutUrl="/admin"
         appearance={{
           variables: {
@@ -72,20 +66,17 @@ if (!PUBLISHABLE_KEY) {
             fontFamily: 'Inter, system-ui, sans-serif',
             borderRadius: '4px',
           },
-          elements: {
-            card: 'border border-border shadow-md',
-            formButtonPrimary:
-              'bg-gold text-navy hover:bg-gold-soft uppercase tracking-[0.12em] text-[12px] font-medium',
-            headerTitle: 'font-serif text-navy text-3xl font-medium tracking-tight',
-            headerSubtitle: 'text-slate text-sm',
-          },
         }}
       >
         <AdminApp />
         <Toaster
           position="top-right"
           toastOptions={{
-            style: { background: '#fff', color: '#1E293B', border: '1px solid rgba(11,18,32,0.1)' },
+            style: {
+              background: '#fff',
+              color: '#1E293B',
+              border: '1px solid rgba(11,18,32,0.1)',
+            },
           }}
         />
       </ClerkProvider>
