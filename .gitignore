@@ -9,3 +9,10 @@ dist
 .idea
 .vscode
 .thumbnail
+.claude
+.cache
+coverage
+*.swp
+*.swo
+.history
+
