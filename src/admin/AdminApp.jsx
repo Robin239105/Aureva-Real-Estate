@@ -117,15 +117,13 @@ function AuthSwitcher() {
     <SignUp
       routing="hash"
       signInUrl="/admin#/sign-in"
-      afterSignUpUrl="/admin"
-      afterSignInUrl="/admin"
+      fallbackRedirectUrl="/admin"
     />
   ) : (
     <SignIn
       routing="hash"
       signUpUrl="/admin#/sign-up"
-      afterSignInUrl="/admin"
-      afterSignUpUrl="/admin"
+      fallbackRedirectUrl="/admin"
     />
   );
 }

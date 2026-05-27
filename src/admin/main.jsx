@@ -57,6 +57,11 @@ if (!PUBLISHABLE_KEY) {
     <React.StrictMode>
       <ClerkProvider
         publishableKey={PUBLISHABLE_KEY}
+        signInUrl="/admin"
+        signUpUrl="/admin"
+        signInFallbackRedirectUrl="/admin"
+        signUpFallbackRedirectUrl="/admin"
+        afterSignOutUrl="/admin"
         appearance={{
           variables: {
             colorPrimary: '#C9A45C',
