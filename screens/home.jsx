@@ -404,10 +404,38 @@ function HeroCinematic({ navigate }) {
           }} />
           <div style={{
             position: "absolute", inset: 0,
-            background: "linear-gradient(105deg, rgba(11,18,32,0.88) 0%, rgba(11,18,32,0.55) 45%, rgba(11,18,32,0.45) 70%, rgba(11,18,32,0.7) 100%)",
+            background: "linear-gradient(100deg, rgba(11,18,32,0.95) 0%, rgba(11,18,32,0.85) 38%, rgba(11,18,32,0.55) 62%, rgba(11,18,32,0.78) 100%)",
+          }} />
+          {/* radial spotlight behind headline for legibility */}
+          <div style={{
+            position: "absolute", inset: 0,
+            background: "radial-gradient(ellipse 60% 70% at 28% 50%, rgba(0,0,0,0.55), transparent 70%)",
+          }} />
+          {/* bottom-edge fade so footer marquee + dots stay readable */}
+          <div style={{
+            position: "absolute", inset: 0,
+            background: "linear-gradient(0deg, rgba(11,18,32,0.85) 0%, transparent 18%)",
           }} />
         </div>
       ))}
+
+      {/* === Cinematic layers: vignette, grain, gold beam === */}
+      <div aria-hidden="true" style={{
+        position: "absolute", inset: 0, zIndex: 1, pointerEvents: "none",
+        background: "radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.55) 100%)",
+      }} />
+      <div aria-hidden="true" style={{
+        position: "absolute", inset: 0, zIndex: 1, pointerEvents: "none",
+        opacity: 0.18, mixBlendMode: "overlay",
+        backgroundImage: "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/></svg>\")",
+        backgroundSize: "160px 160px",
+      }} />
+      <div aria-hidden="true" style={{
+        position: "absolute", top: 0, bottom: 0, left: "55%", width: 1,
+        background: "linear-gradient(180deg, transparent, rgba(201,164,92,0.45) 30%, rgba(201,164,92,0.45) 70%, transparent)",
+        zIndex: 2, pointerEvents: "none",
+        animation: "beamFade 4s ease-in-out infinite alternate",
+      }} />
 
       {/* === Top live ticker === */}
       <div style={{
@@ -419,7 +447,7 @@ function HeroCinematic({ navigate }) {
         <div className="container-wide hero-ticker" style={{
           display: "flex", alignItems: "center", justifyContent: "space-between",
           padding: "11px 40px", fontSize: 11, letterSpacing: "0.2em", textTransform: "uppercase",
-          color: "rgba(248,245,239,0.85)", gap: 20, flexWrap: "wrap",
+          color: "rgba(248,245,239,0.95)", gap: 20, flexWrap: "wrap",
         }}>
           <div style={{ display: "inline-flex", alignItems: "center", gap: 10 }}>
             <span style={{ width: 7, height: 7, borderRadius: 999, background: "var(--gold)", animation: "pulseDot 1.6s infinite" }}></span>
@@ -462,6 +490,8 @@ function HeroCinematic({ navigate }) {
           <h1 className="serif" style={{
             fontSize: "clamp(44px, 6.2vw, 96px)", fontWeight: 300, lineHeight: 0.98, margin: 0,
             letterSpacing: "-0.028em",
+            color: "#fff",
+            textShadow: "0 2px 30px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.4)",
           }}>
             <span style={{ display: "block", overflow: "hidden" }}>
               {headline.slice(0,2).map((w, i) => (
@@ -497,8 +527,9 @@ function HeroCinematic({ navigate }) {
 
           <p className="hero-body" style={{
             fontSize: "clamp(15px, 1.15vw, 18px)", lineHeight: 1.7,
-            color: "rgba(248,245,239,0.8)", maxWidth: 520, marginTop: 28,
+            color: "rgba(248,245,239,0.95)", maxWidth: 520, marginTop: 28,
             animation: "fadeUp 800ms 1500ms both",
+            textShadow: "0 1px 12px rgba(0,0,0,0.5)",
           }}>
             A curated collection of the world's most considered residences — represented by advisors who treat your move as their craft.
           </p>
@@ -532,7 +563,7 @@ function HeroCinematic({ navigate }) {
                 <div className="serif" style={{ fontSize: "clamp(26px, 2.4vw, 34px)", color: "var(--gold)", fontWeight: 400, lineHeight: 1, letterSpacing: "-0.01em" }}>
                   {s.prefix}<Counter target={s.n} duration={1800} delay={2100 + i*180} />{s.suffix}
                 </div>
-                <div style={{ fontSize: 10, letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(248,245,239,0.55)", marginTop: 8 }}>{s.label}</div>
+                <div style={{ fontSize: 10, letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(248,245,239,0.85)", marginTop: 8 }}>{s.label}</div>
               </div>
             ))}
           </div>
@@ -568,8 +599,9 @@ function HeroCinematic({ navigate }) {
                     pointerEvents: offset === 0 ? "auto" : "none",
                   }}>
                   <div style={{
-                    height: "100%", border: "1px solid rgba(201,164,92,0.4)",
+                    height: "100%", border: "1px solid rgba(201,164,92,0.55)",
                     background: `url(${s.img}) center/cover`, position: "relative",
+                    boxShadow: offset === 0 ? "0 30px 80px rgba(0,0,0,0.55), 0 0 0 1px rgba(201,164,92,0.25), 0 0 60px rgba(201,164,92,0.15)" : "none",
                   }}>
                     <div style={{
                       position: "absolute", inset: 0,
@@ -614,6 +646,23 @@ function HeroCinematic({ navigate }) {
             ))}
           </div>
         </div>
+      </div>
+
+      {/* === Scroll hint === */}
+      <div aria-hidden="true" style={{
+        position: "absolute", left: "50%", transform: "translateX(-50%)",
+        bottom: 78, zIndex: 5, pointerEvents: "none",
+        display: "flex", flexDirection: "column", alignItems: "center", gap: 8,
+        animation: "fadeIn 800ms 2400ms both",
+      }}>
+        <span style={{
+          fontFamily: "var(--mono)", fontSize: 9, letterSpacing: "0.3em",
+          textTransform: "uppercase", color: "rgba(248,245,239,0.7)",
+        }}>Scroll</span>
+        <span style={{
+          width: 1, height: 36, background: "linear-gradient(180deg, var(--gold), transparent)",
+          animation: "scrollHint 1.8s ease-in-out infinite",
+        }} />
       </div>
 
       {/* === Bottom marquee (now in flow) === */}
@@ -664,6 +713,15 @@ function HeroCinematic({ navigate }) {
         @keyframes scrollDot {
           0%, 100% { opacity: 0.3; }
           50%      { opacity: 1; }
+        }
+        @keyframes beamFade {
+          0%   { opacity: 0.2; transform: scaleY(0.85); }
+          100% { opacity: 0.7; transform: scaleY(1); }
+        }
+        @keyframes scrollHint {
+          0%   { transform: translateY(0);   opacity: 0.4; }
+          50%  { transform: translateY(8px); opacity: 1; }
+          100% { transform: translateY(0);   opacity: 0.4; }
         }
         @media (max-width: 1280px) {
           .hero-grid { grid-template-columns: 1fr !important; gap: 50px !important; }
