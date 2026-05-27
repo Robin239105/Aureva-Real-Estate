@@ -167,7 +167,7 @@ function PrivacyPage({ navigate }) {
       <p>
         Depending on your jurisdiction you may have the right to access, correct, delete, or port
         your personal data, restrict or object to processing, and withdraw consent. Contact{' '}
-        <a href="mailto:privacy@aureva.vercel.app">privacy@aureva.vercel.app</a> to exercise these
+        <a href="mailto:privacy@aurevarealestate.vercel.app">privacy@aurevarealestate.vercel.app</a> to exercise these
         rights. We respond within 30 days.
       </p>
 
@@ -194,7 +194,7 @@ function PrivacyPage({ navigate }) {
       <p>
         Aureva Estates · Data Protection Office
         <br />
-        Email: <a href="mailto:privacy@aureva.vercel.app">privacy@aureva.vercel.app</a>
+        Email: <a href="mailto:privacy@aurevarealestate.vercel.app">privacy@aurevarealestate.vercel.app</a>
         <br />
         Mail: 1 Park Avenue, Suite 4000, New York, NY 10016
       </p>
@@ -214,7 +214,7 @@ function TermsPage({ navigate }) {
     >
       <h2>1. Agreement</h2>
       <p>
-        By accessing or using aureva.vercel.app (the "Site") you agree to be bound by these Terms of
+        By accessing or using aurevarealestate.vercel.app (the "Site") you agree to be bound by these Terms of
         Service ("Terms"). If you do not agree, do not use the Site.
       </p>
 
@@ -311,7 +311,7 @@ function TermsPage({ navigate }) {
       <h2>14. Contact</h2>
       <p>
         Questions about these Terms? Email{' '}
-        <a href="mailto:legal@aureva.vercel.app">legal@aureva.vercel.app</a>.
+        <a href="mailto:legal@aurevarealestate.vercel.app">legal@aurevarealestate.vercel.app</a>.
       </p>
     </LegalShell>
   );
@@ -323,7 +323,7 @@ function AccessibilityPage({ navigate }) {
     <LegalShell
       eyebrow="Legal"
       title="Accessibility Statement"
-      kicker="Our commitment to making aureva.vercel.app accessible to all visitors, including those with disabilities."
+      kicker="Our commitment to making aurevarealestate.vercel.app accessible to all visitors, including those with disabilities."
       updated="May 27, 2026"
       breadcrumb="Home · Legal · Accessibility"
     >
@@ -344,7 +344,7 @@ function AccessibilityPage({ navigate }) {
         disabilities. It defines three levels of conformance: Level A, Level AA, and Level AAA.
       </p>
       <p>
-        aureva.vercel.app is <strong>partially conformant</strong> with WCAG 2.1 level AA. Partially
+        aurevarealestate.vercel.app is <strong>partially conformant</strong> with WCAG 2.1 level AA. Partially
         conformant means that some parts of the content do not fully conform to the accessibility
         standard.
       </p>
@@ -383,12 +383,12 @@ function AccessibilityPage({ navigate }) {
 
       <h2>Feedback</h2>
       <p>
-        We welcome your feedback on the accessibility of aureva.vercel.app. If you encounter any
+        We welcome your feedback on the accessibility of aurevarealestate.vercel.app. If you encounter any
         barriers, please contact us:
       </p>
       <ul>
         <li>
-          Email: <a href="mailto:access@aureva.vercel.app">access@aureva.vercel.app</a>
+          Email: <a href="mailto:access@aurevarealestate.vercel.app">access@aurevarealestate.vercel.app</a>
         </li>
         <li>Phone: +1 (212) 555 0100</li>
       </ul>
@@ -409,7 +409,7 @@ function CookiesPage({ navigate }) {
     <LegalShell
       eyebrow="Legal"
       title="Cookie Policy"
-      kicker="How aureva.vercel.app uses cookies and similar technologies, and how to control them."
+      kicker="How aurevarealestate.vercel.app uses cookies and similar technologies, and how to control them."
       updated="May 27, 2026"
       breadcrumb="Home · Legal · Cookies"
     >
@@ -530,7 +530,7 @@ function CookiesPage({ navigate }) {
 
       <h2>Contact</h2>
       <p>
-        Email <a href="mailto:privacy@aureva.vercel.app">privacy@aureva.vercel.app</a> with
+        Email <a href="mailto:privacy@aurevarealestate.vercel.app">privacy@aurevarealestate.vercel.app</a> with
         questions about our use of cookies.
       </p>
     </LegalShell>
