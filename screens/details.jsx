@@ -210,14 +210,22 @@ function DetailsPage({ navigate, propertyId, favs, toggleFav }) {
                     </div>
                   ) : (
                     <form onSubmit={(e) => { e.preventDefault(); setSubmitted(true); }} style={{ marginTop: 20, display: "grid", gap: 14 }}>
-                      <input className="input" placeholder="Your name" required />
-                      <input className="input" type="email" placeholder="Email" required />
-                      <input className="input" type="tel" placeholder="Phone" />
-                      <input className="input" type="date" value={tourDate} onChange={e => setTourDate(e.target.value)} required />
-                      <select className="input">
-                        <option>In-person tour</option>
-                        <option>Private video tour</option>
-                        <option>Just send more information</option>
+                      <input className="input dark-field" placeholder="Your name" required />
+                      <input className="input dark-field" type="email" placeholder="Email" required />
+                      <input className="input dark-field" type="tel" placeholder="Phone" />
+                      <input
+                        className="input dark-field"
+                        type="date"
+                        value={tourDate}
+                        onChange={e => setTourDate(e.target.value)}
+                        required
+                        style={{ colorScheme: "dark" }}
+                      />
+                      <select className="input dark-field" defaultValue="">
+                        <option value="" disabled hidden>Tour type</option>
+                        <option value="in-person" style={{ color: "#0B1220", background: "#fff" }}>In-person tour</option>
+                        <option value="video"     style={{ color: "#0B1220", background: "#fff" }}>Private video tour</option>
+                        <option value="info"      style={{ color: "#0B1220", background: "#fff" }}>Just send more information</option>
                       </select>
                       <button type="submit" className="btn btn-gold" style={{ marginTop: 4 }}>
                         Request Tour <span className="arrow"></span>

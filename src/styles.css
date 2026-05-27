@@ -191,6 +191,40 @@ textarea.input { resize: vertical; min-height: 120px; font-family: var(--sans); 
 .section-dark .input::placeholder { color: rgba(248,245,239,0.5); }
 .section-dark .label { color: rgba(248,245,239,0.55); }
 
+/* Inputs on dark cards (.dark-field) — fixes invisible placeholder text in
+   native date / select widgets inside navy backgrounds. */
+.dark-field {
+  background: rgba(255,255,255,0.06) !important;
+  border-color: rgba(201,164,92,0.3) !important;
+  color: var(--ivory) !important;
+  color-scheme: dark;
+}
+.dark-field::placeholder { color: rgba(248,245,239,0.6) !important; }
+.dark-field:focus { border-color: var(--gold) !important; outline: none; }
+/* Webkit date input internals */
+.dark-field::-webkit-datetime-edit,
+.dark-field::-webkit-datetime-edit-fields-wrapper,
+.dark-field::-webkit-datetime-edit-text,
+.dark-field::-webkit-datetime-edit-month-field,
+.dark-field::-webkit-datetime-edit-day-field,
+.dark-field::-webkit-datetime-edit-year-field { color: var(--ivory); }
+.dark-field:invalid::-webkit-datetime-edit { color: rgba(248,245,239,0.55); }
+.dark-field::-webkit-calendar-picker-indicator {
+  filter: invert(0.85) sepia(0.4) saturate(2) hue-rotate(5deg);
+  cursor: pointer; opacity: 0.85;
+}
+/* Select — explicit chevron + ivory text */
+select.dark-field {
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23C9A45C' stroke-width='2'><path d='m6 9 6 6 6-6'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  background-size: 12px;
+  padding-right: 38px;
+}
+select.dark-field option { color: #0B1220; background: #fff; }
+
 .fav {
   position: absolute; top: 14px; right: 14px;
   width: 36px; height: 36px;
