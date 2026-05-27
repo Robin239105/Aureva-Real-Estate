@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import { Routes, Route, Navigate, useLocation, useNavigate } from 'react-router';
 import { SignIn, SignUp, Show, useAuth, useUser, UserButton } from '@clerk/react';
 import { Shell } from './Shell.jsx';
 import { Dashboard } from './pages/Dashboard.jsx';
@@ -8,46 +9,92 @@ import { Posts } from './pages/Posts.jsx';
 import { Inquiries } from './pages/Inquiries.jsx';
 import { Settings } from './pages/Settings.jsx';
 
-const ROUTES = {
-  '/admin': 'dashboard',
-  '/admin/properties': 'properties',
-  '/admin/agents': 'agents',
-  '/admin/posts': 'posts',
-  '/admin/inquiries': 'inquiries',
-  '/admin/settings': 'settings',
-};
-
-function useAdminRoute() {
-  const [path, setPath] = useState(() => window.location.pathname.replace(/\/$/, '') || '/admin');
-  useEffect(() => {
-    const onPop = () => setPath(window.location.pathname.replace(/\/$/, '') || '/admin');
-    window.addEventListener('popstate', onPop);
-    return () => window.removeEventListener('popstate', onPop);
-  }, []);
-  const navigate = (next) => {
-    const clean = next.replace(/\/$/, '') || '/admin';
-    if (clean !== window.location.pathname.replace(/\/$/, '')) {
-      window.history.pushState(null, '', clean);
-    }
-    setPath(clean);
-  };
-  return [path, navigate];
-}
-
 export default function AdminApp() {
   return (
     <>
       <Show when="signed-out">
-        <SignInScreen />
+        <SignedOutRoutes />
       </Show>
       <Show when="signed-in">
-        <AdminAuthed />
+        <SignedInRoutes />
       </Show>
     </>
   );
 }
 
-function SignInScreen() {
+function SignedOutRoutes() {
+  return (
+    <Routes>
+      <Route path="/sign-in/*" element={<SignInScreen mode="sign-in" />} />
+      <Route path="/sign-up/*" element={<SignInScreen mode="sign-up" />} />
+      <Route path="*" element={<SignInScreen mode="sign-in" />} />
+    </Routes>
+  );
+}
+
+function SignedInRoutes() {
+  return (
+    <AuthedShell>
+      <Routes>
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/properties" element={<Properties />} />
+        <Route path="/agents" element={<Agents />} />
+        <Route path="/posts" element={<Posts />} />
+        <Route path="/inquiries" element={<Inquiries />} />
+        <Route path="/settings" element={<Settings />} />
+        <Route path="/sign-in/*" element={<Navigate to="/" replace />} />
+        <Route path="/sign-up/*" element={<Navigate to="/" replace />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </AuthedShell>
+  );
+}
+
+function AuthedShell({ children }) {
+  const { getToken } = useAuth();
+  const { user } = useUser();
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  // Expose token-fetcher globally for the simple fetch wrapper.
+  useEffect(() => {
+    window.__getAdminToken = () => getToken();
+    return () => {
+      delete window.__getAdminToken;
+    };
+  }, [getToken]);
+
+  const route =
+    {
+      '/': 'dashboard',
+      '/properties': 'properties',
+      '/agents': 'agents',
+      '/posts': 'posts',
+      '/inquiries': 'inquiries',
+      '/settings': 'settings',
+    }[location.pathname] || 'dashboard';
+
+  return (
+    <Shell
+      route={route}
+      navigate={(path) => navigate(stripBasename(path))}
+      user={user}
+      userButton={<UserButton afterSignOutUrl="/admin" />}
+    >
+      {children}
+    </Shell>
+  );
+}
+
+// Sidebar uses absolute paths like "/admin/properties". BrowserRouter has
+// basename="/admin", so we strip it before navigate().
+function stripBasename(p) {
+  if (p.startsWith('/admin/')) return p.slice(6);
+  if (p === '/admin') return '/';
+  return p;
+}
+
+function SignInScreen({ mode }) {
   return (
     <div className="min-h-screen w-full grid lg:grid-cols-2 bg-navy text-ivory">
       <div className="relative hidden lg:flex flex-col justify-between p-12 overflow-hidden">
@@ -89,69 +136,23 @@ function SignInScreen() {
       </div>
       <div className="flex items-center justify-center p-6 lg:p-12 bg-ivory text-foreground">
         <div className="w-full max-w-md">
-          <AuthSwitcher />
+          {mode === 'sign-up' ? (
+            <SignUp
+              routing="path"
+              path="/sign-up"
+              signInUrl="/sign-in"
+              fallbackRedirectUrl="/"
+            />
+          ) : (
+            <SignIn
+              routing="path"
+              path="/sign-in"
+              signUpUrl="/sign-up"
+              fallbackRedirectUrl="/"
+            />
+          )}
         </div>
       </div>
     </div>
-  );
-}
-
-function AuthSwitcher() {
-  // Watch the hash so SignIn / SignUp can toggle without a real router.
-  const [hash, setHash] = useState(() => window.location.hash);
-  useEffect(() => {
-    const onHash = () => setHash(window.location.hash);
-    window.addEventListener('hashchange', onHash);
-    return () => window.removeEventListener('hashchange', onHash);
-  }, []);
-  const isSignUp = hash.startsWith('#/sign-up') || hash.startsWith('#sign-up');
-  return isSignUp ? (
-    <SignUp
-      routing="hash"
-      signInUrl="/admin#/sign-in"
-      fallbackRedirectUrl="/admin"
-    />
-  ) : (
-    <SignIn
-      routing="hash"
-      signUpUrl="/admin#/sign-up"
-      fallbackRedirectUrl="/admin"
-    />
-  );
-}
-
-function AdminAuthed() {
-  const [path, navigate] = useAdminRoute();
-  const route = ROUTES[path] || 'dashboard';
-  const { getToken } = useAuth();
-  const { user } = useUser();
-
-  // Expose the token-fetcher globally so simple fetch helpers can call it.
-  useEffect(() => {
-    window.__getAdminToken = () => getToken();
-    return () => {
-      delete window.__getAdminToken;
-    };
-  }, [getToken]);
-
-  const PageComp =
-    {
-      dashboard: Dashboard,
-      properties: Properties,
-      agents: Agents,
-      posts: Posts,
-      inquiries: Inquiries,
-      settings: Settings,
-    }[route] || Dashboard;
-
-  return (
-    <Shell
-      route={route}
-      navigate={navigate}
-      user={user}
-      userButton={<UserButton afterSignOutUrl="/admin" />}
-    >
-      <PageComp navigate={navigate} />
-    </Shell>
   );
 }

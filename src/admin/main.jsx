@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './admin.css';
 import { ClerkProvider } from '@clerk/react';
 import { Toaster } from 'sonner';
+import { BrowserRouter, useNavigate } from 'react-router';
 import AdminApp from './AdminApp.jsx';
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
@@ -43,6 +44,40 @@ function SetupRequired() {
   );
 }
 
+function RootLayout() {
+  const navigate = useNavigate();
+  return (
+    <ClerkProvider
+      routerPush={(to) => navigate(to)}
+      routerReplace={(to) => navigate(to, { replace: true })}
+      signInUrl="/admin/sign-in"
+      signUpUrl="/admin/sign-up"
+      signInFallbackRedirectUrl="/admin"
+      signUpFallbackRedirectUrl="/admin"
+      afterSignOutUrl="/admin"
+      appearance={{
+        variables: {
+          colorPrimary: '#C9A45C',
+          colorText: '#1E293B',
+          colorBackground: '#F8F5EF',
+          colorInputBackground: '#ffffff',
+          colorInputText: '#1E293B',
+          fontFamily: 'Inter, system-ui, sans-serif',
+          borderRadius: '4px',
+        },
+      }}
+    >
+      <AdminApp />
+      <Toaster
+        position="top-right"
+        toastOptions={{
+          style: { background: '#fff', color: '#1E293B', border: '1px solid rgba(11,18,32,0.1)' },
+        }}
+      />
+    </ClerkProvider>
+  );
+}
+
 const root = ReactDOM.createRoot(document.getElementById('admin-root'));
 
 if (!PUBLISHABLE_KEY) {
@@ -54,36 +89,9 @@ if (!PUBLISHABLE_KEY) {
 } else {
   root.render(
     <React.StrictMode>
-      <ClerkProvider
-        signInUrl="/admin"
-        signUpUrl="/admin"
-        signInFallbackRedirectUrl="/admin"
-        signUpFallbackRedirectUrl="/admin"
-        afterSignOutUrl="/admin"
-        appearance={{
-          variables: {
-            colorPrimary: '#C9A45C',
-            colorText: '#1E293B',
-            colorBackground: '#F8F5EF',
-            colorInputBackground: '#ffffff',
-            colorInputText: '#1E293B',
-            fontFamily: 'Inter, system-ui, sans-serif',
-            borderRadius: '4px',
-          },
-        }}
-      >
-        <AdminApp />
-        <Toaster
-          position="top-right"
-          toastOptions={{
-            style: {
-              background: '#fff',
-              color: '#1E293B',
-              border: '1px solid rgba(11,18,32,0.1)',
-            },
-          }}
-        />
-      </ClerkProvider>
+      <BrowserRouter basename="/admin">
+        <RootLayout />
+      </BrowserRouter>
     </React.StrictMode>
   );
 }
