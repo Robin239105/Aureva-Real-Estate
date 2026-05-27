@@ -25,9 +25,9 @@ export default function AdminApp() {
 function SignedOutRoutes() {
   return (
     <Routes>
-      <Route path="/sign-in/*" element={<SignInScreen mode="sign-in" />} />
-      <Route path="/sign-up/*" element={<SignInScreen mode="sign-up" />} />
-      <Route path="*" element={<Navigate to="/sign-in" replace />} />
+      <Route path="/admin/sign-in/*" element={<AuthScreen mode="sign-in" />} />
+      <Route path="/admin/sign-up/*" element={<AuthScreen mode="sign-up" />} />
+      <Route path="*" element={<Navigate to="/admin/sign-in" replace />} />
     </Routes>
   );
 }
@@ -36,15 +36,13 @@ function SignedInRoutes() {
   return (
     <AuthedShell>
       <Routes>
-        <Route path="/" element={<Dashboard />} />
-        <Route path="/properties" element={<Properties />} />
-        <Route path="/agents" element={<Agents />} />
-        <Route path="/posts" element={<Posts />} />
-        <Route path="/inquiries" element={<Inquiries />} />
-        <Route path="/settings" element={<Settings />} />
-        <Route path="/sign-in/*" element={<Navigate to="/" replace />} />
-        <Route path="/sign-up/*" element={<Navigate to="/" replace />} />
-        <Route path="*" element={<Navigate to="/" replace />} />
+        <Route path="/admin" element={<Dashboard />} />
+        <Route path="/admin/properties" element={<Properties />} />
+        <Route path="/admin/agents" element={<Agents />} />
+        <Route path="/admin/posts" element={<Posts />} />
+        <Route path="/admin/inquiries" element={<Inquiries />} />
+        <Route path="/admin/settings" element={<Settings />} />
+        <Route path="*" element={<Navigate to="/admin" replace />} />
       </Routes>
     </AuthedShell>
   );
@@ -66,18 +64,18 @@ function AuthedShell({ children }) {
 
   const route =
     {
-      '/': 'dashboard',
-      '/properties': 'properties',
-      '/agents': 'agents',
-      '/posts': 'posts',
-      '/inquiries': 'inquiries',
-      '/settings': 'settings',
+      '/admin': 'dashboard',
+      '/admin/properties': 'properties',
+      '/admin/agents': 'agents',
+      '/admin/posts': 'posts',
+      '/admin/inquiries': 'inquiries',
+      '/admin/settings': 'settings',
     }[location.pathname] || 'dashboard';
 
   return (
     <Shell
       route={route}
-      navigate={(path) => navigate(stripBasename(path))}
+      navigate={(path) => navigate(path)}
       user={user}
       userButton={<UserButton afterSignOutUrl="/admin" />}
     >
@@ -86,15 +84,7 @@ function AuthedShell({ children }) {
   );
 }
 
-// Sidebar uses absolute paths like "/admin/properties". BrowserRouter has
-// basename="/admin", so we strip it before navigate().
-function stripBasename(p) {
-  if (p.startsWith('/admin/')) return p.slice(6);
-  if (p === '/admin') return '/';
-  return p;
-}
-
-function SignInScreen({ mode }) {
+function AuthScreen({ mode }) {
   return (
     <div className="min-h-screen w-full grid lg:grid-cols-2 bg-navy text-ivory">
       <div className="relative hidden lg:flex flex-col justify-between p-12 overflow-hidden">
@@ -139,16 +129,16 @@ function SignInScreen({ mode }) {
           {mode === 'sign-up' ? (
             <SignUp
               routing="path"
-              path="/sign-up"
-              signInUrl="/sign-in"
-              fallbackRedirectUrl="/"
+              path="/admin/sign-up"
+              signInUrl="/admin/sign-in"
+              fallbackRedirectUrl="/admin"
             />
           ) : (
             <SignIn
               routing="path"
-              path="/sign-in"
-              signUpUrl="/sign-up"
-              fallbackRedirectUrl="/"
+              path="/admin/sign-in"
+              signUpUrl="/admin/sign-up"
+              fallbackRedirectUrl="/admin"
             />
           )}
         </div>

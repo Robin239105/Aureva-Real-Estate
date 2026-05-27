@@ -89,7 +89,7 @@ if (!PUBLISHABLE_KEY) {
 } else {
   root.render(
     <React.StrictMode>
-      <BrowserRouter basename="/admin">
+      <BrowserRouter>
         <RootLayout />
       </BrowserRouter>
     </React.StrictMode>
