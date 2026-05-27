@@ -111,10 +111,10 @@ function SellPage({ navigate }) {
                     {step === 0 && (
                       <>
                         <Field label="Property address">
-                          <input className="input" placeholder="123 Mulholland Dr, Beverly Hills, CA" value={form.address} onChange={e=>setForm({...form, address: e.target.value})} />
+                          <input className="input dark-field" placeholder="123 Mulholland Dr, Beverly Hills, CA" value={form.address} onChange={e=>setForm({...form, address: e.target.value})} />
                         </Field>
                         <Field label="Property type">
-                          <select className="input" value={form.type} onChange={e=>setForm({...form, type: e.target.value})}>
+                          <select className="input dark-field" value={form.type} onChange={e=>setForm({...form, type: e.target.value})}>
                             {["Villa","Penthouse","Apartment","Loft","Estate","Cottage","Beachfront","Duplex"].map(o => <option key={o}>{o}</option>)}
                           </select>
                         </Field>
@@ -122,10 +122,10 @@ function SellPage({ navigate }) {
                     )}
                     {step === 1 && (
                       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
-                        <Field label="Bedrooms"><select className="input" value={form.beds} onChange={e=>setForm({...form, beds: e.target.value})}>{["2","3","4","5","6","7+"].map(o=><option key={o}>{o}</option>)}</select></Field>
-                        <Field label="Bathrooms"><select className="input" value={form.baths} onChange={e=>setForm({...form, baths: e.target.value})}>{["2","3","4","5","6","7+"].map(o=><option key={o}>{o}</option>)}</select></Field>
-                        <Field label="Approx. area (ft²)"><input className="input" placeholder="e.g. 4,200" value={form.area} onChange={e=>setForm({...form, area: e.target.value})} /></Field>
-                        <Field label="Year built"><input className="input" placeholder="e.g. 2018" /></Field>
+                        <Field label="Bedrooms"><select className="input dark-field" value={form.beds} onChange={e=>setForm({...form, beds: e.target.value})}>{["2","3","4","5","6","7+"].map(o=><option key={o}>{o}</option>)}</select></Field>
+                        <Field label="Bathrooms"><select className="input dark-field" value={form.baths} onChange={e=>setForm({...form, baths: e.target.value})}>{["2","3","4","5","6","7+"].map(o=><option key={o}>{o}</option>)}</select></Field>
+                        <Field label="Approx. area (ft²)"><input className="input dark-field" placeholder="e.g. 4,200" value={form.area} onChange={e=>setForm({...form, area: e.target.value})} /></Field>
+                        <Field label="Year built"><input className="input dark-field" placeholder="e.g. 2018" /></Field>
                       </div>
                     )}
                     {step === 2 && (
@@ -144,9 +144,9 @@ function SellPage({ navigate }) {
                     )}
                     {step === 3 && (
                       <>
-                        <Field label="Your name"><input className="input" value={form.name} onChange={e=>setForm({...form, name: e.target.value})} placeholder="Full name" /></Field>
-                        <Field label="Email"><input className="input" type="email" value={form.email} onChange={e=>setForm({...form, email: e.target.value})} placeholder="you@example.com" /></Field>
-                        <Field label="Phone"><input className="input" type="tel" value={form.phone} onChange={e=>setForm({...form, phone: e.target.value})} placeholder="+1 (___) ___ ____" /></Field>
+                        <Field label="Your name"><input className="input dark-field" value={form.name} onChange={e=>setForm({...form, name: e.target.value})} placeholder="Full name" /></Field>
+                        <Field label="Email"><input className="input dark-field" type="email" value={form.email} onChange={e=>setForm({...form, email: e.target.value})} placeholder="you@example.com" /></Field>
+                        <Field label="Phone"><input className="input dark-field" type="tel" value={form.phone} onChange={e=>setForm({...form, phone: e.target.value})} placeholder="+1 (___) ___ ____" /></Field>
                       </>
                     )}
                   </div>
