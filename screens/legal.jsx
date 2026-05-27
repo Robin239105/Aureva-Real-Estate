@@ -113,7 +113,7 @@ function PrivacyPage({ navigate }) {
       <p>We use industry-standard administrative, technical, and physical safeguards including TLS encryption in transit, encrypted storage at rest, and access controls. No system is perfectly secure; we cannot guarantee absolute security.</p>
 
       <h2>8. Your rights</h2>
-      <p>Depending on your jurisdiction you may have the right to access, correct, delete, or port your personal data, restrict or object to processing, and withdraw consent. Contact <a href="mailto:privacy@aureva.com">privacy@aureva.com</a> to exercise these rights. We respond within 30 days.</p>
+      <p>Depending on your jurisdiction you may have the right to access, correct, delete, or port your personal data, restrict or object to processing, and withdraw consent. Contact <a href="mailto:privacy@aureva.vercel.app">privacy@aureva.vercel.app</a> to exercise these rights. We respond within 30 days.</p>
 
       <h2>9. International transfers</h2>
       <p>Aureva operates globally. Your data may be transferred to and processed in jurisdictions outside your country of residence. We rely on Standard Contractual Clauses and adequacy decisions where applicable.</p>
@@ -127,7 +127,7 @@ function PrivacyPage({ navigate }) {
       <h2>12. Contact</h2>
       <p>
         Aureva Estates · Data Protection Office<br />
-        Email: <a href="mailto:privacy@aureva.com">privacy@aureva.com</a><br />
+        Email: <a href="mailto:privacy@aureva.vercel.app">privacy@aureva.vercel.app</a><br />
         Mail: 1 Park Avenue, Suite 4000, New York, NY 10016
       </p>
     </LegalShell>
@@ -145,7 +145,7 @@ function TermsPage({ navigate }) {
       breadcrumb="Home · Legal · Terms"
     >
       <h2>1. Agreement</h2>
-      <p>By accessing or using aureva.com (the "Site") you agree to be bound by these Terms of Service ("Terms"). If you do not agree, do not use the Site.</p>
+      <p>By accessing or using aureva.vercel.app (the "Site") you agree to be bound by these Terms of Service ("Terms"). If you do not agree, do not use the Site.</p>
 
       <h2>2. Eligibility</h2>
       <p>You must be at least 18 years old and able to form a binding contract to use the Site or engage our brokerage services.</p>
@@ -192,7 +192,7 @@ function TermsPage({ navigate }) {
       <p>We may modify these Terms at any time. Continued use of the Site after changes are posted constitutes acceptance of the revised Terms.</p>
 
       <h2>14. Contact</h2>
-      <p>Questions about these Terms? Email <a href="mailto:legal@aureva.com">legal@aureva.com</a>.</p>
+      <p>Questions about these Terms? Email <a href="mailto:legal@aureva.vercel.app">legal@aureva.vercel.app</a>.</p>
     </LegalShell>
   );
 }
@@ -203,7 +203,7 @@ function AccessibilityPage({ navigate }) {
     <LegalShell
       eyebrow="Legal"
       title="Accessibility Statement"
-      kicker="Our commitment to making aureva.com accessible to all visitors, including those with disabilities."
+      kicker="Our commitment to making aureva.vercel.app accessible to all visitors, including those with disabilities."
       updated="May 27, 2026"
       breadcrumb="Home · Legal · Accessibility"
     >
@@ -212,7 +212,7 @@ function AccessibilityPage({ navigate }) {
 
       <h2>Conformance status</h2>
       <p>The <a href="https://www.w3.org/TR/WCAG21/" target="_blank" rel="noopener noreferrer">Web Content Accessibility Guidelines (WCAG)</a> defines requirements for designers and developers to improve accessibility for people with disabilities. It defines three levels of conformance: Level A, Level AA, and Level AAA.</p>
-      <p>aureva.com is <strong>partially conformant</strong> with WCAG 2.1 level AA. Partially conformant means that some parts of the content do not fully conform to the accessibility standard.</p>
+      <p>aureva.vercel.app is <strong>partially conformant</strong> with WCAG 2.1 level AA. Partially conformant means that some parts of the content do not fully conform to the accessibility standard.</p>
 
       <h2>Features</h2>
       <ul>
@@ -236,9 +236,9 @@ function AccessibilityPage({ navigate }) {
       <p>Aureva assesses accessibility by self-evaluation and external audit. Automated tools (axe, Lighthouse) run on every release, and manual screen-reader testing is performed quarterly.</p>
 
       <h2>Feedback</h2>
-      <p>We welcome your feedback on the accessibility of aureva.com. If you encounter any barriers, please contact us:</p>
+      <p>We welcome your feedback on the accessibility of aureva.vercel.app. If you encounter any barriers, please contact us:</p>
       <ul>
-        <li>Email: <a href="mailto:access@aureva.com">access@aureva.com</a></li>
+        <li>Email: <a href="mailto:access@aureva.vercel.app">access@aureva.vercel.app</a></li>
         <li>Phone: +1 (212) 555 0100</li>
       </ul>
       <p>We aim to respond to accessibility feedback within 5 business days.</p>
@@ -256,7 +256,7 @@ function CookiesPage({ navigate }) {
     <LegalShell
       eyebrow="Legal"
       title="Cookie Policy"
-      kicker="How aureva.com uses cookies and similar technologies, and how to control them."
+      kicker="How aureva.vercel.app uses cookies and similar technologies, and how to control them."
       updated="May 27, 2026"
       breadcrumb="Home · Legal · Cookies"
     >
@@ -309,7 +309,7 @@ function CookiesPage({ navigate }) {
       <p>We honor the browser-level Do-Not-Track signal where supported. When DNT is enabled, optional analytics and marketing categories remain off regardless of your cookie choice.</p>
 
       <h2>Contact</h2>
-      <p>Email <a href="mailto:privacy@aureva.com">privacy@aureva.com</a> with questions about our use of cookies.</p>
+      <p>Email <a href="mailto:privacy@aureva.vercel.app">privacy@aureva.vercel.app</a> with questions about our use of cookies.</p>
     </LegalShell>
   );
 }

@@ -145,22 +145,22 @@ const LOCATIONS = [
 const AGENTS = [
   { id: "a1", name: "Eleanor Voss",      title: "Managing Director, West Coast", image: IMG.agent1,
     listings: 38, sold: 240, bio: "Eleanor leads Aureva's West Coast division, specializing in trophy estates from Beverly Hills to Montecito.",
-    phone: "+1 (310) 555 0142", email: "eleanor@aureva.com", langs: ["English","French","Italian"], rating: 4.9 },
+    phone: "+1 (310) 555 0142", email: "eleanor@aureva.vercel.app", langs: ["English","French","Italian"], rating: 4.9 },
   { id: "a2", name: "James Kowalski",    title: "Director, Manhattan", image: IMG.agent2,
     listings: 24, sold: 187, bio: "Twelve years with Manhattan's most discerning buyers and sellers. Pre-war specialist.",
-    phone: "+1 (212) 555 0118", email: "james@aureva.com", langs: ["English","Polish"], rating: 4.9 },
+    phone: "+1 (212) 555 0118", email: "james@aureva.vercel.app", langs: ["English","Polish"], rating: 4.9 },
   { id: "a3", name: "Aisha Renard",      title: "Senior Advisor, Coastal", image: IMG.agent3,
     listings: 31, sold: 152, bio: "Aisha represents oceanfront and resort properties across Malibu, Maui, and the Caribbean.",
-    phone: "+1 (310) 555 0193", email: "aisha@aureva.com", langs: ["English","Spanish","Portuguese"], rating: 4.8 },
+    phone: "+1 (310) 555 0193", email: "aisha@aureva.vercel.app", langs: ["English","Spanish","Portuguese"], rating: 4.8 },
   { id: "a4", name: "Henrik Lindqvist",  title: "Director, Mountain Resort", image: IMG.agent4,
     listings: 19, sold: 96,  bio: "Henrik covers Aspen, Vail, and Park City — alpine estates and ski-in/ski-out residences.",
-    phone: "+1 (970) 555 0167", email: "henrik@aureva.com", langs: ["English","Swedish","German"], rating: 4.9 },
+    phone: "+1 (970) 555 0167", email: "henrik@aureva.vercel.app", langs: ["English","Swedish","German"], rating: 4.9 },
   { id: "a5", name: "Marisol Cruz",      title: "Senior Advisor, South Florida", image: IMG.agent5,
     listings: 28, sold: 134, bio: "Marisol specializes in Miami, Palm Beach, and the Florida Keys — waterfront and new development.",
-    phone: "+1 (305) 555 0124", email: "marisol@aureva.com", langs: ["English","Spanish"], rating: 4.8 },
+    phone: "+1 (305) 555 0124", email: "marisol@aureva.vercel.app", langs: ["English","Spanish"], rating: 4.8 },
   { id: "a6", name: "Theodore Park",     title: "Advisor, International", image: IMG.agent6,
     listings: 22, sold: 71,  bio: "Theo bridges international clients into the U.S. market, with offices in Seoul and London.",
-    phone: "+1 (646) 555 0181", email: "theo@aureva.com", langs: ["English","Korean","Mandarin"], rating: 4.7 },
+    phone: "+1 (646) 555 0181", email: "theo@aureva.vercel.app", langs: ["English","Korean","Mandarin"], rating: 4.7 },
 ];
 
 const TESTIMONIALS = [
@@ -182,6 +182,15 @@ const formatPrice = (price, rent) => {
   return `$${price.toLocaleString()}`;
 };
 
+// URL-safe slug from arbitrary string
+const slugify = (s) => String(s).toLowerCase()
+  .normalize('NFKD').replace(/[̀-ͯ]/g, '')
+  .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+
+PROPERTIES.forEach(p => { p.slug = slugify(p.title); });
+AGENTS.forEach(a => { a.slug = slugify(a.name); });
+BLOG_POSTS.forEach(b => { b.slug = slugify(b.title); });
+
 Object.assign(window, {
-  IMG, PROPERTIES, LOCATIONS, AGENTS, TESTIMONIALS, BLOG_POSTS, formatPrice,
+  IMG, PROPERTIES, LOCATIONS, AGENTS, TESTIMONIALS, BLOG_POSTS, formatPrice, slugify,
 });

@@ -35,7 +35,7 @@ function ContactPage({ navigate }) {
               <div style={{ marginTop: 50, display: "grid", gap: 26 }}>
                 {[
                   { icon: <Icon.Phone />, label: "Call", value: "+1 (212) 555 0100" },
-                  { icon: <Icon.Mail />,  label: "Email", value: "concierge@aureva.com" },
+                  { icon: <Icon.Mail />,  label: "Email", value: "concierge@aureva.vercel.app" },
                   { icon: <Icon.Pin />,   label: "New York", value: "455 Madison Avenue, Floor 23" },
                   { icon: <Icon.Pin />,   label: "Los Angeles", value: "9200 Sunset Boulevard, Suite 800" },
                 ].map(o => (
