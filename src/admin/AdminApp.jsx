@@ -1,5 +1,13 @@
 import { useEffect, useState } from 'react';
-import { SignIn, SignedIn, SignedOut, useAuth, useUser, UserButton } from '@clerk/clerk-react';
+import {
+  SignIn,
+  SignUp,
+  SignedIn,
+  SignedOut,
+  useAuth,
+  useUser,
+  UserButton,
+} from '@clerk/clerk-react';
 import { Shell } from './Shell.jsx';
 import { Dashboard } from './pages/Dashboard.jsx';
 import { Properties } from './pages/Properties.jsx';
@@ -89,15 +97,36 @@ function SignInScreen() {
       </div>
       <div className="flex items-center justify-center p-6 lg:p-12 bg-ivory text-foreground">
         <div className="w-full max-w-md">
-          <SignIn
-            routing="hash"
-            signUpUrl="/admin#sign-up"
-            afterSignInUrl="/admin"
-            afterSignUpUrl="/admin"
-          />
+          <AuthSwitcher />
         </div>
       </div>
     </div>
+  );
+}
+
+function AuthSwitcher() {
+  // Watch the hash so SignIn / SignUp can toggle without a real router.
+  const [hash, setHash] = useState(() => window.location.hash);
+  useEffect(() => {
+    const onHash = () => setHash(window.location.hash);
+    window.addEventListener('hashchange', onHash);
+    return () => window.removeEventListener('hashchange', onHash);
+  }, []);
+  const isSignUp = hash.startsWith('#/sign-up') || hash.startsWith('#sign-up');
+  return isSignUp ? (
+    <SignUp
+      routing="hash"
+      signInUrl="/admin#/sign-in"
+      afterSignUpUrl="/admin"
+      afterSignInUrl="/admin"
+    />
+  ) : (
+    <SignIn
+      routing="hash"
+      signUpUrl="/admin#/sign-up"
+      afterSignInUrl="/admin"
+      afterSignUpUrl="/admin"
+    />
   );
 }
 
